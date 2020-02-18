@@ -5,19 +5,21 @@
         <v-subheader class="headline">{{yearMonth}}</v-subheader>
         <v-list-item-group active-class="pink--text">
           <template v-for="(record, index) in records">
-            <v-list-item :key="record.id">
-              <v-list-item-content>
-                <nuxt-link :to="{name:'record-id', params: { id: record.id}}">
-                  <v-list-item-subtitle>{{record.datetime | dateFormat('YYYY/MM/DD HH:mm')}}</v-list-item-subtitle>
-                  <v-list-item-title>{{record.headacheType}}</v-list-item-title>
-                  <v-list-item-subtitle class="text--primary">
-                    前駆症状: {{record.prodrome}}
-                    <br />
-                    直前に行ったこと: {{record.lastAction}}
+            <nuxt-link :to="{name:'record-id', params: { id: record.id}}" :key="record.id">
+              <v-list-item>
+                <v-list-item-content>
+                  <v-list-item-title>{{ record.onsetDate | moment("MM/DD") }} <v-icon>mdi-weather-sunny</v-icon></v-list-item-title>
+                  <v-list-item-subtitle>
+                    生活に支障あり
                   </v-list-item-subtitle>
-                </nuxt-link>
-              </v-list-item-content>
-            </v-list-item>
+                </v-list-item-content>
+                <v-list-item-avatar>
+                  <v-icon v-if="record.headacheType == 1">mdi-emoticon-frown</v-icon>
+                  <v-icon v-else-if="record.headacheType == 2">mdi-emoticon-cry</v-icon>
+                  <v-icon v-else-if="record.headacheType == 3">mdi-emoticon-dead</v-icon>
+                </v-list-item-avatar>
+              </v-list-item>
+            </nuxt-link>
 
             <v-divider v-if="index + 1 < records.length" :key="index"></v-divider>
           </template>
@@ -25,6 +27,23 @@
       </v-list>
     </v-card-text>
   </v-card>
+  <!-- <div>
+    <v-card v-for="(record) in records" :key="record.id" class="mx-auto">
+         <v-card-title>
+      <v-icon
+        large
+        left
+      >
+        mdi-weather-sunny
+      </v-icon>
+      <span class="title font-weight-light">{{ record.onsetDate | moment("MM/DD") }}</span>
+    </v-card-title>
+
+    <v-card-text class="">
+      "Turns out semicolon-less style is easier and safer in TS because most gotcha edge cases are type invalid as well."
+    </v-card-text>
+    </v-card>
+  </div> -->
 </template>
 
 <script>

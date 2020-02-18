@@ -30,7 +30,7 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ['~/plugins/date-time-picker', '~/plugins/vue-filter-date-format'],
+  plugins: [ '~/plugins/vue-moment', '~/plugins/local-storage'],
   /*
    ** Nuxt.js dev-modules
    */

@@ -16,6 +16,7 @@
 
             <v-text-field v-model="targetRecord.lastAction" label="直前にした行動"></v-text-field>
             <v-text-field v-model="targetRecord.prodrome" label="前駆症状"></v-text-field>
+            <v-textarea v-model="targetRecord.remarks" autocomplete="email" label="Email"></v-textarea>
           </v-card-text>
           <v-card-actions>
             <v-spacer />
