@@ -59,13 +59,13 @@ export default {
         {
           icon: 'mdi-chart-bubble',
           title: '新しい頭痛を記録',
-          to: '/edit-record'
+          to: '/record'
         }
       ],
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      title: 'Atamaita'
+      title: 'bibi-log'
     }
   }
 }
