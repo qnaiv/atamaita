@@ -22,6 +22,11 @@ export default {
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
   },
+  router: {
+    middleware: [
+      'auth'
+    ]
+  },
   /*
    ** Customize the progress-bar color
    */
@@ -33,7 +38,7 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [ '~/plugins/vue-moment', '~/plugins/local-storage'],
+  plugins: ['~/plugins/vue-moment', '~/plugins/local-storage', "~/plugins/amplify.js"],
   /*
    ** Nuxt.js dev-modules
    */
@@ -90,6 +95,6 @@ export default {
     /*
      ** You can extend webpack config here
      */
-    extend(config, ctx) {}
+    extend(config, ctx) { }
   }
 }
