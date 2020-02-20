@@ -1,0 +1,9 @@
+type HeadacheReport @model {
+  id: ID!
+  userId: String!
+  onsetDate: String!
+  onsetTime: String!
+  impact: String!
+  duration: Int
+  memo:String
+}
