@@ -24,7 +24,7 @@ export default {
   },
   router: {
     middleware: [
-      'auth'
+      'check-auth'
     ]
   },
   /*
