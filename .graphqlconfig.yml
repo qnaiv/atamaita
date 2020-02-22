@@ -1,12 +1,15 @@
 projects:
   atamaita:
-    schemaPath: src/graphql/schema.json
+    schemaPath: graphql/schema.json
     includes:
-      - src/graphql/**/*.js
+      - graphql/**/*.js
     excludes:
       - ./amplify/**
     extensions:
       amplify:
         codeGenTarget: javascript
         generatedFileName: ''
-        docsFilePath: src/graphql
+        docsFilePath: graphql
+extensions:
+  amplify:
+    version: 3
