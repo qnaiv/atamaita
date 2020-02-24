@@ -2,41 +2,41 @@
 // this is an auto generated file. This will be overwritten
 
 export const onCreateHeadacheReport = /* GraphQL */ `
-  subscription OnCreateHeadacheReport {
-    onCreateHeadacheReport {
+  subscription OnCreateHeadacheReport($owner: String!) {
+    onCreateHeadacheReport(owner: $owner) {
       id
-      userId
       onsetDate
       onsetTime
       impact
       duration
       memo
+      owner
     }
   }
 `;
 export const onUpdateHeadacheReport = /* GraphQL */ `
-  subscription OnUpdateHeadacheReport {
-    onUpdateHeadacheReport {
+  subscription OnUpdateHeadacheReport($owner: String!) {
+    onUpdateHeadacheReport(owner: $owner) {
       id
-      userId
       onsetDate
       onsetTime
       impact
       duration
       memo
+      owner
     }
   }
 `;
 export const onDeleteHeadacheReport = /* GraphQL */ `
-  subscription OnDeleteHeadacheReport {
-    onDeleteHeadacheReport {
+  subscription OnDeleteHeadacheReport($owner: String!) {
+    onDeleteHeadacheReport(owner: $owner) {
       id
-      userId
       onsetDate
       onsetTime
       impact
       duration
       memo
+      owner
     }
   }
 `;

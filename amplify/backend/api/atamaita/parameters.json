@@ -1,5 +1,11 @@
 {
     "AppSyncApiName": "atamaita",
     "DynamoDBBillingMode": "PAY_PER_REQUEST",
-    "DynamoDBEnableServerSideEncryption": "false"
+    "DynamoDBEnableServerSideEncryption": "false",
+    "AuthCognitoUserPoolId": {
+        "Fn::GetAtt": [
+            "authatamaitafefb8abe",
+            "Outputs.UserPoolId"
+        ]
+    }
 }

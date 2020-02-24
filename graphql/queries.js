@@ -5,12 +5,12 @@ export const getHeadacheReport = /* GraphQL */ `
   query GetHeadacheReport($id: ID!) {
     getHeadacheReport(id: $id) {
       id
-      userId
       onsetDate
       onsetTime
       impact
       duration
       memo
+      owner
     }
   }
 `;
@@ -23,12 +23,12 @@ export const listHeadacheReports = /* GraphQL */ `
     listHeadacheReports(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        userId
         onsetDate
         onsetTime
         impact
         duration
         memo
+        owner
       }
       nextToken
     }

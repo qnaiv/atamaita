@@ -8,12 +8,12 @@ export const createHeadacheReport = /* GraphQL */ `
   ) {
     createHeadacheReport(input: $input, condition: $condition) {
       id
-      userId
       onsetDate
       onsetTime
       impact
       duration
       memo
+      owner
     }
   }
 `;
@@ -24,12 +24,12 @@ export const updateHeadacheReport = /* GraphQL */ `
   ) {
     updateHeadacheReport(input: $input, condition: $condition) {
       id
-      userId
       onsetDate
       onsetTime
       impact
       duration
       memo
+      owner
     }
   }
 `;
@@ -40,12 +40,12 @@ export const deleteHeadacheReport = /* GraphQL */ `
   ) {
     deleteHeadacheReport(input: $input, condition: $condition) {
       id
-      userId
       onsetDate
       onsetTime
       impact
       duration
       memo
+      owner
     }
   }
 `;

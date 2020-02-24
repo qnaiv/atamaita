@@ -1,6 +1,5 @@
-type HeadacheReport @model {
+type HeadacheReport @model @auth(rules: [{allow: owner}]) {
   id: ID!
-  userId: String!
   onsetDate: String!
   onsetTime: String!
   impact: String!

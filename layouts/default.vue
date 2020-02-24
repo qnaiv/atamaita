@@ -71,7 +71,7 @@ export default {
       ],
       miniVariant: false,
       rightDrawer: false,
-      title: 'bibi-log'
+      title: 'atamaita'
     }
   }
 }

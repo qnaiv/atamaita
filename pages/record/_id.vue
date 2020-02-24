@@ -5,6 +5,23 @@
         <v-card>
           <v-card-title class="headline">編集</v-card-title>
           <v-card-text>
+            <p class="">
+              <v-icon
+                :class="{ 'headache-type-1': targetRecord.impact == 1 }"
+                x-large
+                v-on:click="selectImpact(1)"
+              >mdi-emoticon-frown-outline</v-icon>
+              <v-icon
+                :class="{ 'headache-type-2': targetRecord.impact == 2 }"
+                x-large
+                v-on:click="selectImpact(2)"
+              >mdi-emoticon-cry-outline</v-icon>
+              <v-icon
+                :class="{ 'headache-type-3': targetRecord.impact == 3 }"
+                x-large
+                v-on:click="selectImpact(3)"
+              >mdi-emoticon-dead-outline</v-icon>
+            </p>
             <v-menu
               ref="datepicker"
               v-model="datepicker"
@@ -25,23 +42,7 @@
               </template>
               <v-date-picker v-model="unformattedOnsetDate" no-title @input="datepicker = false"></v-date-picker>
             </v-menu>
-            <p>
-              <v-icon
-                :class="{ 'headache-type-1': targetRecord.impact == 1 }"
-                large
-                v-on:click="selectImpact(1)"
-              >mdi-emoticon-frown-outline</v-icon>
-              <v-icon
-                :class="{ 'headache-type-2': targetRecord.impact == 2 }"
-                large
-                v-on:click="selectImpact(2)"
-              >mdi-emoticon-cry-outline</v-icon>
-              <v-icon
-                :class="{ 'headache-type-3': targetRecord.impact == 3 }"
-                large
-                v-on:click="selectImpact(3)"
-              >mdi-emoticon-dead-outline</v-icon>
-            </p>
+
             <v-textarea v-model="targetRecord.memo" label="memo"></v-textarea>
           </v-card-text>
           <v-card-actions>
