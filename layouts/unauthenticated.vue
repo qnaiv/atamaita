@@ -1,6 +1,6 @@
 <template>
   <v-app dark>
-    <v-app-bar :clipped-left="clipped" fixed app color="primary" dark>
+    <v-app-bar fixed app color="primary" dark>
       <NuxtLink to="/">
         <v-toolbar-title class="white--text" v-text="title" />
       </NuxtLink>
@@ -10,11 +10,9 @@
       </v-btn>
     </v-app-bar>
     <v-content>
-      <v-container>
         <nuxt />
-      </v-container>
     </v-content>
-    <v-footer :fixed="fixed" app>
+    <v-footer app>
       <span>&copy; {{ new Date().getFullYear() }}</span>
     </v-footer>
   </v-app>
