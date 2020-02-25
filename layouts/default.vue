@@ -30,13 +30,13 @@
     <v-navigation-drawer v-model="rightDrawer" right temporary fixed>
       <v-list>
         <v-list-item>
-          <v-list-item-action>
-            <v-icon light>mdi-repeat</v-icon>
-          </v-list-item-action>
-          <v-list-item-title>Switch drawer (click me)</v-list-item-title>
+          <v-list-item-title>
+            <v-icon light>mdi-account</v-icon>
+            {{loginUserName}}
+            </v-list-item-title>
         </v-list-item>
         <v-list-item>
-          <amplify-sign-out v-bind:signOutConfig="signOutConfig"></amplify-sign-out>
+          <amplify-sign-out></amplify-sign-out>
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
@@ -51,7 +51,13 @@ import { AmplifyEventBus } from 'aws-amplify-vue'
 import { Auth } from 'aws-amplify'
 
 export default {
-
+  computed: {
+    loginUserName(){
+      console.log(this.$store.state.loginuser.name);
+      
+      return this.$store.state.loginuser.name
+    }
+  },
   data() {
     return {
       clipped: false,

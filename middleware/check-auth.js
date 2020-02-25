@@ -1,10 +1,12 @@
 import { AmplifyEventBus } from 'aws-amplify-vue'
 import { Auth } from 'aws-amplify'
 
-export default async ({ route,redirect }) => {
+export default async ({ route,redirect,store }) => {
   const userInfo = await Auth.currentUserInfo()
-  console.log(userInfo);
   
+  if(userInfo){
+    store.commit("loginuser/updateName", userInfo.username)
+  }
   if (!userInfo && route.path != '/signin') {
     redirect('/signin')
   }
