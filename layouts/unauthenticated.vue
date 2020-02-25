@@ -1,16 +1,19 @@
 <template>
   <v-app dark>
-    <v-app-bar fixed app color="primary" dark>
+    <v-app-bar fixed app color="primary" dark flat>
       <NuxtLink to="/">
-        <v-toolbar-title class="white--text" v-text="title" />
+        <v-toolbar-title id="logo" class="white--text font-weight-thin">
+          <v-icon>mdi-flash</v-icon>
+          <span>{{title}}</span>
+        </v-toolbar-title>
       </NuxtLink>
       <v-spacer />
       <v-btn icon @click.stop="rightDrawer = !rightDrawer">
         <v-icon>mdi-account</v-icon>
       </v-btn>
     </v-app-bar>
-    <v-content>
-        <nuxt />
+    <v-content class="text-center mt-4">
+      <nuxt />
     </v-content>
     <v-footer app>
       <span>&copy; {{ new Date().getFullYear() }}</span>
@@ -19,11 +22,10 @@
 </template>
 
 <script>
-
 export default {
   data() {
     return {
-      title: 'bibi-log'
+      title: 'atamaita'
     }
   }
 }

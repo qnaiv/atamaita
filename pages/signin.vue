@@ -7,8 +7,8 @@ import { Auth } from 'aws-amplify'
 
 export default {
   layout: 'unauthenticated',
-    async created() {
-      // サインイン済みだったらホームにリダイレクトする
+  async created() {
+    // サインイン済みだったらホームにリダイレクトする
     const userInfo = await Auth.currentUserInfo()
     if (userInfo) {
       this.$router.push('/')
@@ -28,9 +28,9 @@ export default {
 
 <style scoped>
 div {
-    padding: 0;
-    min-width: 100%;
-    box-shadown: none;
-    -webkit-box-shadow: none;
+  padding: 0;
+  min-width: 100%;
+  box-shadown: none;
+  -webkit-box-shadow: none;
 }
 </style>
