@@ -33,17 +33,46 @@
             >
               <template v-slot:activator="{ on }">
                 <v-text-field
-                  :value="formatOnsetDate"
-                  label="Date"
+                  :value="targetRecord.onsetDate"
+                  label="発症日"
+                  readonly
                   prepend-icon="mdi-calendar"
-                  @click:clear="unformattedOnsetDate = null"
+                  @click:clear="targetRecord.onsetDate = null"
                   v-on="on"
                 ></v-text-field>
               </template>
-              <v-date-picker v-model="unformattedOnsetDate" no-title @input="datepicker = false"></v-date-picker>
+              <v-date-picker v-model="targetRecord.onsetDate" no-title @input="datepicker = false"></v-date-picker>
             </v-menu>
 
-            <v-textarea v-model="targetRecord.memo" label="memo"></v-textarea>
+      <v-menu
+        ref="timepicker"
+        v-model="timepicker"
+        :close-on-content-click="false"
+        :nudge-right="40"
+        :return-value.sync="targetRecord.onsetTime"
+        transition="scale-transition"
+        offset-y
+        max-width="290px"
+        min-width="290px"
+      >
+        <template v-slot:activator="{ on }">
+          <v-text-field
+            v-model="targetRecord.onsetTime"
+            label="発症時刻"
+            prepend-icon="mdi-clock"
+            readonly
+            v-on="on"
+          ></v-text-field>
+        </template>
+        <v-time-picker
+          v-if="timepicker"
+          v-model="targetRecord.onsetTime"
+          full-width
+          @click:minute="$refs.timepicker.save(targetRecord.onsetTime)"
+        ></v-time-picker>
+      </v-menu>
+
+            <v-textarea v-model="targetRecord.memo" label="メモ"></v-textarea>
           </v-card-text>
           <v-card-actions>
             <v-spacer />
@@ -58,39 +87,30 @@
 <script>
 import { cloneDeep } from 'lodash'
 import * as moment from 'moment'
+import { graphqlOperation, API, Auth } from 'aws-amplify'
+import { getHeadacheReport } from '../../graphql/queries'
+import { updateHeadacheReport } from '../../graphql/mutations'
 
 export default {
-  created: function() {
-    let records = cloneDeep(this.$store.state.records.list)
-
-    this.targetRecord = records.find(record => {
-      return record.id == this.$route.params.id
-    })
-
-    this.unformattedOnsetDate = moment(this.targetRecord.onsetDate).format(
-      'YYYY-MM-DD'
-    )
+  async asyncData ({params}){
+    let response = await API.graphql(graphqlOperation(getHeadacheReport, {id: params.id}))
+    console.log(response);
+    
+    return {
+      targetRecord: response.data.getHeadacheReport
+    }
   },
   data: function() {
     return {
-      targetRecord: {},
       datepicker: false,
-      unformattedOnsetDate: null
-    }
-  },
-  computed: {
-    formatOnsetDate() {
-      if (!this.unformattedOnsetDate) {
-        return ''
-      }
-      let m = moment(this.unformattedOnsetDate)
-      this.targetRecord.onsetDate = m.toDate().getTime()
-      return this.unformattedOnsetDate
+      timepicker: false,
     }
   },
   methods: {
-    updateRecord() {
-      this.$store.commit('records/update', this.targetRecord)
+    async updateRecord() {
+      let user = await Auth.currentUserInfo()
+      delete this.targetRecord.owner
+      await API.graphql(graphqlOperation(updateHeadacheReport, {input: this.targetRecord}))
       this.$router.push({ name: 'index' })
     },
     selectImpact(h) {

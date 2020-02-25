@@ -5,6 +5,23 @@
         <v-card>
           <v-card-title class="headline">編集</v-card-title>
           <v-card-text>
+            <p class>
+              <v-icon
+                :class="{ 'headache-type-1': targetRecord.impact == 1 }"
+                x-large
+                v-on:click="selectImpact(1)"
+              >mdi-emoticon-frown-outline</v-icon>
+              <v-icon
+                :class="{ 'headache-type-2': targetRecord.impact == 2 }"
+                x-large
+                v-on:click="selectImpact(2)"
+              >mdi-emoticon-cry-outline</v-icon>
+              <v-icon
+                :class="{ 'headache-type-3': targetRecord.impact == 3 }"
+                x-large
+                v-on:click="selectImpact(3)"
+              >mdi-emoticon-dead-outline</v-icon>
+            </p>
             <v-menu
               ref="datepicker"
               v-model="datepicker"
@@ -16,37 +33,50 @@
             >
               <template v-slot:activator="{ on }">
                 <v-text-field
-                  :value="formatOnsetDate"
-                  label="Date"
+                  :value="targetRecord.onsetDate"
+                  label="発症日"
+                  readonly
                   prepend-icon="mdi-calendar"
-                  @click:clear="unformattedOnsetDate = null"
+                  @click:clear="targetRecord.onsetDate = null"
                   v-on="on"
                 ></v-text-field>
               </template>
-              <v-date-picker v-model="unformattedOnsetDate" no-title @input="datepicker = false"></v-date-picker>
+              <v-date-picker v-model="targetRecord.onsetDate" no-title @input="datepicker = false"></v-date-picker>
             </v-menu>
-            <p>
-              <v-icon
-                :class="{ 'headache-type-1': targetRecord.impact == 1 }"
-                large
-                v-on:click="selectImpact(1)"
-              >mdi-emoticon-frown-outline</v-icon>
-              <v-icon
-                :class="{ 'headache-type-2': targetRecord.impact == 2 }"
-                large
-                v-on:click="selectImpact(2)"
-              >mdi-emoticon-cry-outline</v-icon>
-              <v-icon
-                :class="{ 'headache-type-3': targetRecord.impact == 3 }"
-                large
-                v-on:click="selectImpact(3)"
-              >mdi-emoticon-dead-outline</v-icon>
-            </p>
-            <v-textarea v-model="targetRecord.memo" label="memo"></v-textarea>
+
+            <v-menu
+              ref="timepicker"
+              v-model="timepicker"
+              :close-on-content-click="false"
+              :nudge-right="40"
+              :return-value.sync="targetRecord.onsetTime"
+              transition="scale-transition"
+              offset-y
+              max-width="290px"
+              min-width="290px"
+            >
+              <template v-slot:activator="{ on }">
+                <v-text-field
+                  v-model="targetRecord.onsetTime"
+                  label="発症時刻"
+                  prepend-icon="mdi-clock"
+                  readonly
+                  v-on="on"
+                ></v-text-field>
+              </template>
+              <v-time-picker
+                v-if="timepicker"
+                v-model="targetRecord.onsetTime"
+                full-width
+                @click:minute="$refs.timepicker.save(targetRecord.onsetTime)"
+              ></v-time-picker>
+            </v-menu>
+
+            <v-textarea v-model="targetRecord.memo" label="メモ"></v-textarea>
           </v-card-text>
           <v-card-actions>
             <v-spacer />
-            <v-btn color="primary" v-on:click="updateRecord">更新</v-btn>
+            <v-btn color="primary" v-on:click="createRecord">更新</v-btn>
           </v-card-actions>
         </v-card>
       </v-col>
@@ -55,34 +85,35 @@
 </template>
 
 <script>
-import { cloneDeep } from 'lodash'
 import * as moment from 'moment'
+import { graphqlOperation, API, Auth } from 'aws-amplify'
+import { getHeadacheReport } from '../../graphql/queries'
+import { createHeadacheReport  } from '../../graphql/mutations'
 
 export default {
-  created: function() {
-    this.targetRecord.impact = 1
-    this.unformattedOnsetDate = moment().format('YYYY-MM-DD')
+  async asyncData({ params }) {
+    let now = moment()
+
+    return {
+      targetRecord: {
+        onsetDate: now.format('YYYY-MM-DD'),
+        onsetTime: now.format('HH:mm'),
+        impact: 1,
+        memo: ''
+      }
+    }
   },
   data: function() {
     return {
-      targetRecord: {},
       datepicker: false,
-      unformattedOnsetDate: null
-    }
-  },
-  computed: {
-    formatOnsetDate() {
-      if (!this.unformattedOnsetDate) {
-        return ''
-      }
-      let m = moment(this.unformattedOnsetDate)
-      this.targetRecord.onsetDate = m.toDate().getTime()
-      return this.unformattedOnsetDate
+      timepicker: false
     }
   },
   methods: {
-    updateRecord() {
-      this.$store.commit('records/add', this.targetRecord)
+    async createRecord() {
+      await API.graphql(
+        graphqlOperation(createHeadacheReport, { input: this.targetRecord })
+      )
       this.$router.push({ name: 'index' })
     },
     selectImpact(h) {

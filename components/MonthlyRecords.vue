@@ -37,23 +37,6 @@
       </v-list>
     </v-card-text>
   </v-card>
-  <!-- <div>
-    <v-card v-for="(record) in records" :key="record.id" class="mx-auto">
-         <v-card-title>
-      <v-icon
-        large
-        left
-      >
-        mdi-weather-sunny
-      </v-icon>
-      <span class="title font-weight-light">{{ record.onsetDate | moment("MM/DD") }}</span>
-    </v-card-title>
-
-    <v-card-text class="">
-      "Turns out semicolon-less style is easier and safer in TS because most gotcha edge cases are type invalid as well."
-    </v-card-text>
-    </v-card>
-  </div>-->
 </template>
 
 <script>

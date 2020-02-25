@@ -82,18 +82,7 @@ export default {
   methods: {
     addRecordQuickly() {
       let now = moment()
-      // this.$store.commit('records/add', {
-      //   onsetDate: now.getTime(),
-      //   onsetTime: this.getHourName(now.getHours()),
-      //   impact: this.selectedImpact
-      // })
-      // let record = {
-      //   input: {
-      //     onsetDate: now.format('YYYY-MM-DD'),
-      //     onsetTime: now.format('HH:mm'),
-      //     impact: this.selectedImpact
-      //   }
-      // }
+
       API.graphql(
         graphqlOperation(createHeadacheReport, {
           input: {
