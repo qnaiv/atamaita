@@ -1,13 +1,13 @@
 <template>
   <v-card>
-          <v-card-title>
+          <!-- <v-card-title>
             <div class="overline">記録一覧</div>
-          </v-card-title>
+          </v-card-title> -->
     <v-card-text>
       <v-list two-line dense>
         <v-subheader class="headline">{{yearMonth}}</v-subheader>
         <v-list-item-group active-class="pink--text">
-          <template v-for="(record, index) in records">
+          <template v-for="(record, index) in sortedRecords">
             <nuxt-link :to="{name:'record-id', params: { id: record.id}}" :key="record.id">
               <v-list-item>
                 <v-list-item-content>
@@ -40,10 +40,21 @@
 </template>
 
 <script>
+import * as moment from "moment"
 export default {
   props: {
     yearMonth: String,
     records: Array
+  },
+  computed: {
+    sortedRecords(){
+      return this.records.sort((a,b)=>{
+        let aUnix = moment(a.onsetDate + " " + a.onsetTime).unix()
+        let bUnix = moment(b.onsetDate + " " + b.onsetTime).unix()
+        return bUnix - aUnix
+        }
+      )
+    }
   }
 }
 </script>

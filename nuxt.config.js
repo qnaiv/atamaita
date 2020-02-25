@@ -38,7 +38,7 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ['~/plugins/vue-moment', '~/plugins/local-storage', "~/plugins/amplify.js"],
+  plugins: ['~/plugins/vue-moment',  "~/plugins/amplify.js"],
   /*
    ** Nuxt.js dev-modules
    */
@@ -83,7 +83,8 @@ export default {
           error: colors.red.base,
           warning: colors.deep - colors.orange.base,
           info: colors.light - colors.blue.base,
-          success: colors.light - colors.green.base
+          success: colors.light - colors.green.base,
+          background: colors.blue.base
         }
       }
     }

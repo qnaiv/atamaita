@@ -1,6 +1,11 @@
 <template>
   <v-app dark>
-    <v-navigation-drawer v-model="drawer" :clipped="clipped" fixed app color="primary" dark>
+    <v-navigation-drawer v-model="drawer" :clipped="clipped" right fixed app color="grey lighten-3">
+      <v-list-item>
+        <v-list-item-content>
+          <v-list-item-title>こんにちは、{{loginUserName}}さん！</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
       <v-list>
         <v-list-item v-for="(item, i) in items" :key="i" :to="item.to" router exact>
           <v-list-item-action>
@@ -11,37 +16,28 @@
           </v-list-item-content>
         </v-list-item>
       </v-list>
+      <template v-slot:append>
+        <div class="pa-2 text-center">
+          <amplify-sign-out></amplify-sign-out>
+        </div>
+      </template>
     </v-navigation-drawer>
-    <v-app-bar :clipped-left="clipped" fixed app color="primary" dark>
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
+    <v-app-bar :clipped-left="clipped" fixed app color="primary" dark flat>
       <NuxtLink to="/">
-        <v-toolbar-title class="white--text" v-text="title" />
+        <v-toolbar-title id="logo" class="white--text font-weight-thin">
+          <v-icon>mdi-flash</v-icon>
+          <span>{{title}}</span>
+        </v-toolbar-title>
       </NuxtLink>
       <v-spacer />
-      <v-btn icon @click.stop="rightDrawer = !rightDrawer">
-        <v-icon>mdi-account</v-icon>
-      </v-btn>
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
     </v-app-bar>
-    <v-content>
-      <v-container>
-        <nuxt />
-      </v-container>
+    <v-content id="app-container">
+      <nuxt />
     </v-content>
-    <v-navigation-drawer v-model="rightDrawer" right temporary fixed>
-      <v-list>
-        <v-list-item>
-          <v-list-item-title>
-            <v-icon light>mdi-account</v-icon>
-            {{loginUserName}}
-            </v-list-item-title>
-        </v-list-item>
-        <v-list-item>
-          <amplify-sign-out></amplify-sign-out>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
+
     <v-footer :fixed="fixed" app>
-      <span>&copy; {{ new Date().getFullYear() }}</span>
+      <span>&copy; {{ new Date().getFullYear() }} qnaiv</span>
     </v-footer>
   </v-app>
 </template>
@@ -52,9 +48,9 @@ import { Auth } from 'aws-amplify'
 
 export default {
   computed: {
-    loginUserName(){
-      console.log(this.$store.state.loginuser.name);
-      
+    loginUserName() {
+      console.log(this.$store.state.loginuser.name)
+
       return this.$store.state.loginuser.name
     }
   },

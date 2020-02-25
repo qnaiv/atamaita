@@ -3,7 +3,12 @@
     <v-row>
       <v-col cols="12" sm="6" offset-sm="3">
         <v-card>
-          <v-card-title class="headline">編集</v-card-title>
+          <v-card-title class="headline">編集
+            <v-spacer />
+                          <v-icon
+                v-on:click="deleteRecord"
+              >mdi-delete</v-icon>
+          </v-card-title>
           <v-card-text>
             <p class="">
               <v-icon
@@ -86,10 +91,9 @@
 
 <script>
 import { cloneDeep } from 'lodash'
-import * as moment from 'moment'
 import { graphqlOperation, API, Auth } from 'aws-amplify'
 import { getHeadacheReport } from '../../graphql/queries'
-import { updateHeadacheReport } from '../../graphql/mutations'
+import { updateHeadacheReport, deleteHeadacheReport } from '../../graphql/mutations'
 
 export default {
   async asyncData ({params}){
@@ -111,6 +115,10 @@ export default {
       let user = await Auth.currentUserInfo()
       delete this.targetRecord.owner
       await API.graphql(graphqlOperation(updateHeadacheReport, {input: this.targetRecord}))
+      this.$router.push({ name: 'index' })
+    },
+    async deleteRecord() {
+      await API.graphql(graphqlOperation(deleteHeadacheReport, {input: {id: this.targetRecord.id}}))
       this.$router.push({ name: 'index' })
     },
     selectImpact(h) {
