@@ -1,12 +1,17 @@
 <template>
-  <amplify-authenticator :authConfig="authConfig" />
+  <!-- <amplify-authenticator :authConfig="authConfig" /> -->
+  <authenticator />
 </template>
 
 <script>
 import { Auth } from 'aws-amplify'
+import Authenticator from '~/components/Authenticator.vue'
 
 export default {
   layout: 'unauthenticated',
+  components: {
+    Authenticator
+  },
   async created() {
     // サインイン済みだったらホームにリダイレクトする
     const userInfo = await Auth.currentUserInfo()

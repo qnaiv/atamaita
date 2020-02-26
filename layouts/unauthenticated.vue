@@ -1,18 +1,6 @@
 <template>
-  <v-app dark>
-    <v-app-bar fixed app color="primary" dark flat>
-      <NuxtLink to="/">
-        <v-toolbar-title id="logo" class="white--text font-weight-thin">
-          <v-icon>mdi-flash</v-icon>
-          <span>{{title}}</span>
-        </v-toolbar-title>
-      </NuxtLink>
-      <v-spacer />
-      <v-btn icon @click.stop="rightDrawer = !rightDrawer">
-        <v-icon>mdi-account</v-icon>
-      </v-btn>
-    </v-app-bar>
-    <v-content class="text-center mt-4">
+  <v-app dark>  
+    <v-content id="signin-container" >
       <nuxt />
     </v-content>
     <v-footer app>

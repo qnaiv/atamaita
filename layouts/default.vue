@@ -18,7 +18,6 @@
       </v-list>
       <template v-slot:append>
         <div class="pa-2 text-center">
-          <amplify-sign-out></amplify-sign-out>
         </div>
       </template>
     </v-navigation-drawer>
@@ -69,6 +68,11 @@ export default {
           icon: 'mdi-chart-bubble',
           title: '新しい頭痛を記録',
           to: '/record'
+        },
+        {
+          icon: 'mdi-tune',
+          title: '設定',
+          to: '/settings'
         }
       ],
       miniVariant: false,

@@ -6,7 +6,7 @@ export default {
    ** Headers of the page
    */
   head: {
-    titleTemplate: '%s - ' + process.env.npm_package_name,
+    titleTemplate: '%s',
     title: process.env.npm_package_name || '',
     htmlAttrs: {
       lang: 'ja'
@@ -38,7 +38,7 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ['~/plugins/vue-moment',  "~/plugins/amplify.js"],
+  plugins: ['~/plugins/vue-moment',  "~/plugins/amplify.js", "~/plugins/loading.js"],
   /*
    ** Nuxt.js dev-modules
    */
