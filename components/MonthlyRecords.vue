@@ -7,7 +7,7 @@
       <v-list two-line dense>
         <v-subheader class="headline">{{yearMonth}}</v-subheader>
         <v-list-item-group active-class="pink--text">
-          <template v-for="(record, index) in sortedRecords">
+          <template v-for="(record, index) in records">
             <nuxt-link :to="{name:'record-id', params: { id: record.id}}" :key="record.id">
               <v-list-item>
                 <v-list-item-content>
@@ -47,14 +47,6 @@ export default {
     records: Array
   },
   computed: {
-    sortedRecords(){
-      return this.records.sort((a,b)=>{
-        let aUnix = moment(a.onsetDate + " " + a.onsetTime).unix()
-        let bUnix = moment(b.onsetDate + " " + b.onsetTime).unix()
-        return bUnix - aUnix
-        }
-      )
-    }
   }
 }
 </script>

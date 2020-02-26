@@ -31,7 +31,9 @@
     </v-row>
     <v-row>
       <v-col cols="12" sm="6" offset-sm="3">
-        <monthly-records yearMonth="2020年1月" :records="records"></monthly-records>
+        <div class="mb-3" v-for="(monthlyRecords,key) in groupByMonth" :key="monthlyRecords.onsetDate">
+          <monthly-records :yearMonth="key" :records="monthlyRecords"></monthly-records>
+        </div>
       </v-col>
     </v-row>
     <v-fab-transition>
@@ -51,15 +53,19 @@ import { createHeadacheReport } from '../graphql/mutations'
 import * as moment from 'moment'
 import { onCreateHeadacheReport } from '../graphql/subscriptions'
 import { getHeadacheReport, listHeadacheReports } from '../graphql/queries'
+import groupBy from "lodash/groupBy"
+
 export default {
+  async asyncData(){
+    let response = await API.graphql(graphqlOperation(listHeadacheReports));
+    return {
+      records: response.data.listHeadacheReports.items
+    }
+  },
   created: async function() {
     this.selectedImpact = 1
 
-    API.graphql(graphqlOperation(listHeadacheReports)).then(response => {
-      this.records = response.data.listHeadacheReports.items
-    })
     let user = await Auth.currentUserInfo()
-    
     API.graphql(graphqlOperation(onCreateHeadacheReport, {owner: user.username})).subscribe({
       next: response => {
         this.records.unshift(response.value.data.onCreateHeadacheReport)
@@ -67,10 +73,16 @@ export default {
     })
   },
   computed: {
-    headacheRecords() {
-      console.log(this.$store.state.records.list)
-
-      return this.$store.state.records.list
+    groupByMonth() {
+      let sorted = this.records.sort((a,b)=>{
+        let aUnix = moment(a.onsetDate + " " + a.onsetTime).unix()
+        let bUnix = moment(b.onsetDate + " " + b.onsetTime).unix()
+        return bUnix - aUnix
+        }
+      )
+      let grouped = groupBy(sorted, value => moment(value.onsetDate).format("YYYY年MM月"))
+      
+      return grouped;
     }
   },
   data: function() {
@@ -95,22 +107,6 @@ export default {
     },
     selectImpact(h) {
       this.selectedImpact = h
-    },
-    getHourName(hour) {
-      // 朝 　5~10
-      // 昼 　11~17
-      // 夜 　18~23
-      // 深夜 12~4
-      if (hour >= 5 && hour <= 10) {
-        return '朝'
-      } else if (hour >= 11 && hour <= 17) {
-        return '昼'
-      } else if (hour >= 18 && hour <= 23) {
-        return '夜'
-      } else if (hour <= 4) {
-        return '深夜'
-      }
-      return ''
     }
   },
   components: {
