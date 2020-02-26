@@ -88,7 +88,7 @@
 import * as moment from 'moment'
 import { graphqlOperation, API, Auth } from 'aws-amplify'
 import { getHeadacheReport } from '../../graphql/queries'
-import { createHeadacheReport  } from '../../graphql/mutations'
+import { createHeadacheReport } from '../../graphql/mutations'
 
 export default {
   async asyncData({ params }) {
@@ -111,9 +111,11 @@ export default {
   },
   methods: {
     async createRecord() {
+      let loader = this.$loading.show()
       await API.graphql(
         graphqlOperation(createHeadacheReport, { input: this.targetRecord })
       )
+      loader.hide()
       this.$router.push({ name: 'index' })
     },
     selectImpact(h) {

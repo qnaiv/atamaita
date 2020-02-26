@@ -92,10 +92,11 @@ export default {
     }
   },
   methods: {
-    addRecordQuickly() {
+    async addRecordQuickly() {
+      
+      let loader = this.$loading.show()
       let now = moment()
-
-      API.graphql(
+      await API.graphql(
         graphqlOperation(createHeadacheReport, {
           input: {
             onsetDate: now.format('YYYY-MM-DD'),
@@ -104,6 +105,7 @@ export default {
           }
         })
       )
+      loader.hide()
     },
     selectImpact(h) {
       this.selectedImpact = h

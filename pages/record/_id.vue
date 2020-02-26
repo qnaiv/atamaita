@@ -3,14 +3,13 @@
     <v-row>
       <v-col cols="12" sm="6" offset-sm="3">
         <v-card>
-          <v-card-title class="headline">編集
+          <v-card-title class="headline">
+            編集
             <v-spacer />
-                          <v-icon
-                v-on:click="deleteRecord"
-              >mdi-delete</v-icon>
+            <v-icon v-on:click="deleteRecord">mdi-delete</v-icon>
           </v-card-title>
           <v-card-text>
-            <p class="">
+            <p class>
               <v-icon
                 :class="{ 'headache-type-1': targetRecord.impact == 1 }"
                 x-large
@@ -49,33 +48,33 @@
               <v-date-picker v-model="targetRecord.onsetDate" no-title @input="datepicker = false"></v-date-picker>
             </v-menu>
 
-      <v-menu
-        ref="timepicker"
-        v-model="timepicker"
-        :close-on-content-click="false"
-        :nudge-right="40"
-        :return-value.sync="targetRecord.onsetTime"
-        transition="scale-transition"
-        offset-y
-        max-width="290px"
-        min-width="290px"
-      >
-        <template v-slot:activator="{ on }">
-          <v-text-field
-            v-model="targetRecord.onsetTime"
-            label="発症時刻"
-            prepend-icon="mdi-clock"
-            readonly
-            v-on="on"
-          ></v-text-field>
-        </template>
-        <v-time-picker
-          v-if="timepicker"
-          v-model="targetRecord.onsetTime"
-          full-width
-          @click:minute="$refs.timepicker.save(targetRecord.onsetTime)"
-        ></v-time-picker>
-      </v-menu>
+            <v-menu
+              ref="timepicker"
+              v-model="timepicker"
+              :close-on-content-click="false"
+              :nudge-right="40"
+              :return-value.sync="targetRecord.onsetTime"
+              transition="scale-transition"
+              offset-y
+              max-width="290px"
+              min-width="290px"
+            >
+              <template v-slot:activator="{ on }">
+                <v-text-field
+                  v-model="targetRecord.onsetTime"
+                  label="発症時刻"
+                  prepend-icon="mdi-clock"
+                  readonly
+                  v-on="on"
+                ></v-text-field>
+              </template>
+              <v-time-picker
+                v-if="timepicker"
+                v-model="targetRecord.onsetTime"
+                full-width
+                @click:minute="$refs.timepicker.save(targetRecord.onsetTime)"
+              ></v-time-picker>
+            </v-menu>
 
             <v-textarea v-model="targetRecord.memo" label="メモ"></v-textarea>
           </v-card-text>
@@ -93,13 +92,18 @@
 import { cloneDeep } from 'lodash'
 import { graphqlOperation, API, Auth } from 'aws-amplify'
 import { getHeadacheReport } from '../../graphql/queries'
-import { updateHeadacheReport, deleteHeadacheReport } from '../../graphql/mutations'
+import {
+  updateHeadacheReport,
+  deleteHeadacheReport
+} from '../../graphql/mutations'
 
 export default {
-  async asyncData ({params}){
-    let response = await API.graphql(graphqlOperation(getHeadacheReport, {id: params.id}))
-    console.log(response);
-    
+  async asyncData({ params }) {
+    let response = await API.graphql(
+      graphqlOperation(getHeadacheReport, { id: params.id })
+    )
+    console.log(response)
+
     return {
       targetRecord: response.data.getHeadacheReport
     }
@@ -107,18 +111,28 @@ export default {
   data: function() {
     return {
       datepicker: false,
-      timepicker: false,
+      timepicker: false
     }
   },
   methods: {
     async updateRecord() {
+      let loader = this.$loading.show()
       let user = await Auth.currentUserInfo()
       delete this.targetRecord.owner
-      await API.graphql(graphqlOperation(updateHeadacheReport, {input: this.targetRecord}))
+      await API.graphql(
+        graphqlOperation(updateHeadacheReport, { input: this.targetRecord })
+      )
+      loader.hide()
       this.$router.push({ name: 'index' })
     },
     async deleteRecord() {
-      await API.graphql(graphqlOperation(deleteHeadacheReport, {input: {id: this.targetRecord.id}}))
+      let loader = this.$loading.show()
+      await API.graphql(
+        graphqlOperation(deleteHeadacheReport, {
+          input: { id: this.targetRecord.id }
+        })
+      )
+      loader.hide()
       this.$router.push({ name: 'index' })
     },
     selectImpact(h) {
