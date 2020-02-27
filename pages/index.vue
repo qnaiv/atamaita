@@ -31,18 +31,25 @@
     </v-row>
     <v-row>
       <v-col cols="12" sm="6" offset-sm="3">
-        <div class="mb-3" v-for="(monthlyRecords,key) in groupByMonth" :key="monthlyRecords.onsetDate">
+        <div v-if="!loaded">
+          <v-card>
+              <v-skeleton-loader type="card-heading"></v-skeleton-loader>
+            <v-list>
+              <v-skeleton-loader type="list-item-three-line"></v-skeleton-loader>
+              <v-skeleton-loader type="list-item-three-line"></v-skeleton-loader>
+              <v-skeleton-loader type="list-item-three-line"></v-skeleton-loader>
+            </v-list>
+          </v-card>
+        </div>
+        <div
+          class="mb-3"
+          v-for="(monthlyRecords,key) in groupByMonth"
+          :key="monthlyRecords.onsetDate"
+        >
           <monthly-records :yearMonth="key" :records="monthlyRecords"></monthly-records>
         </div>
       </v-col>
     </v-row>
-    <v-fab-transition>
-      <nuxt-link :to="{name: 'record'}">
-        <v-btn color="primary" fab fixed bottom right class="v-btn--example">
-          <v-icon>mdi-pencil</v-icon>
-        </v-btn>
-      </nuxt-link>
-    </v-fab-transition>
   </v-container>
 </template>
 
@@ -53,47 +60,50 @@ import { createHeadacheReport } from '../graphql/mutations'
 import * as moment from 'moment'
 import { onCreateHeadacheReport } from '../graphql/subscriptions'
 import { getHeadacheReport, listHeadacheReports } from '../graphql/queries'
-import groupBy from "lodash/groupBy"
+import groupBy from 'lodash/groupBy'
 
 export default {
-  async asyncData(){
-    let response = await API.graphql(graphqlOperation(listHeadacheReports));
-    return {
-      records: response.data.listHeadacheReports.items
-    }
-  },
   created: async function() {
     this.selectedImpact = 1
 
     let user = await Auth.currentUserInfo()
-    API.graphql(graphqlOperation(onCreateHeadacheReport, {owner: user.username})).subscribe({
+    API.graphql(
+      graphqlOperation(onCreateHeadacheReport, { owner: user.username })
+    ).subscribe({
       next: response => {
         this.records.unshift(response.value.data.onCreateHeadacheReport)
       }
     })
   },
+  created() {
+    API.graphql(graphqlOperation(listHeadacheReports)).then(response => {
+      this.records = response.data.listHeadacheReports.items
+      this.loaded = true
+    })
+  },
   computed: {
     groupByMonth() {
-      let sorted = this.records.sort((a,b)=>{
-        let aUnix = moment(a.onsetDate + " " + a.onsetTime).unix()
-        let bUnix = moment(b.onsetDate + " " + b.onsetTime).unix()
+      let sorted = this.records.sort((a, b) => {
+        let aUnix = moment(a.onsetDate + ' ' + a.onsetTime).unix()
+        let bUnix = moment(b.onsetDate + ' ' + b.onsetTime).unix()
         return bUnix - aUnix
-        }
+      })
+      let grouped = groupBy(sorted, value =>
+        moment(value.onsetDate).format('YYYY年MM月')
       )
-      let grouped = groupBy(sorted, value => moment(value.onsetDate).format("YYYY年MM月"))
-      
-      return grouped;
+
+      return grouped
     }
   },
   data: function() {
     return {
-      selectedImpact: null,
-      records: []
+      selectedImpact: 1,
+      records: [],
+      loaded: false
     }
   },
   methods: {
     async addRecordQuickly() {
-      
       let loader = this.$loading.show()
       let now = moment()
       await API.graphql(

@@ -17,8 +17,7 @@
         </v-list-item>
       </v-list>
       <template v-slot:append>
-        <div class="pa-2 text-center">
-        </div>
+        <div class="pa-2 text-center"></div>
       </template>
     </v-navigation-drawer>
     <v-app-bar :clipped-left="clipped" fixed app color="primary" dark flat>
@@ -31,13 +30,28 @@
       <v-spacer />
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
     </v-app-bar>
-    <v-content id="app-container">
+    <v-content id="app-container" class="mb-12">
       <nuxt />
     </v-content>
+    <v-bottom-navigation fixed >
+      <v-btn to="/">
+        <span>ホーム</span>
+        <v-icon>mdi-home</v-icon>
+      </v-btn>
 
-    <v-footer :fixed="fixed" app>
+      <v-btn disabled to="/">
+        <span>統計</span>
+        <v-icon>mdi-chart-line</v-icon>
+      </v-btn>
+
+      <v-btn disabled to="/settings">
+        <span>出力</span>
+        <v-icon>mdi-download</v-icon>
+      </v-btn>
+    </v-bottom-navigation>
+    <!-- <v-footer :fixed="fixed" app>
       <span>&copy; {{ new Date().getFullYear() }} qnaiv</span>
-    </v-footer>
+    </v-footer>-->
   </v-app>
 </template>
 
@@ -61,7 +75,7 @@ export default {
       items: [
         {
           icon: 'mdi-apps',
-          title: 'ホーム',
+          title: '使い方',
           to: '/'
         },
         {
