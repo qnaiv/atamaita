@@ -37,6 +37,7 @@
             >
               <template v-slot:activator="{ on }">
                 <v-text-field
+                  outlined
                   :value="targetRecord.onsetDate"
                   label="発症日"
                   readonly
@@ -61,6 +62,7 @@
             >
               <template v-slot:activator="{ on }">
                 <v-text-field
+                  outlined
                   v-model="targetRecord.onsetTime"
                   label="発症時刻"
                   prepend-icon="mdi-clock"
@@ -76,7 +78,9 @@
               ></v-time-picker>
             </v-menu>
 
-            <v-textarea v-model="targetRecord.memo" label="メモ"></v-textarea>
+            <v-text-field outlined v-model="targetRecord.duration" label="持続時間" type="number"></v-text-field>
+
+            <v-textarea outlined v-model="targetRecord.memo" label="メモ"></v-textarea>
           </v-card-text>
           <v-card-actions>
             <v-spacer />

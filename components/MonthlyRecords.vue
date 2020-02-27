@@ -1,8 +1,8 @@
 <template>
   <v-card>
-          <!-- <v-card-title>
+    <!-- <v-card-title>
             <div class="overline">記録一覧</div>
-          </v-card-title> -->
+    </v-card-title>-->
     <v-card-text>
       <v-list two-line dense>
         <v-subheader class="headline">{{yearMonth}}</v-subheader>
@@ -17,7 +17,10 @@
                   </v-list-item-title>
                   <p class="memo">{{record.memo}}</p>
                 </v-list-item-content>
-                <v-list-item-avatar>
+                <v-list-item-action>
+                  <v-list-item-action-text>
+                    <span v-if="record.duration">{{record.duration}} hr</span>
+                  </v-list-item-action-text>
                   <v-icon color="blue darken-2" v-if="record.impact == 1">mdi-emoticon-frown-outline</v-icon>
                   <v-icon
                     color="orange darken-2"
@@ -27,7 +30,7 @@
                     color="red darken-2"
                     v-else-if="record.impact == 3"
                   >mdi-emoticon-dead-outline</v-icon>
-                </v-list-item-avatar>
+                </v-list-item-action>
               </v-list-item>
             </nuxt-link>
 
@@ -40,19 +43,18 @@
 </template>
 
 <script>
-import * as moment from "moment"
+import * as moment from 'moment'
 export default {
   props: {
     yearMonth: String,
     records: Array
   },
-  computed: {
-  }
+  computed: {}
 }
 </script>
 
 <style>
-.memo{
+.memo {
   white-space: pre-line;
   color: gray;
   font-size: 0.9em;
