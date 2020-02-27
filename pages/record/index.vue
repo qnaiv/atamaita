@@ -77,6 +77,7 @@
             <v-text-field outlined v-model="targetRecord.duration" label="持続時間" type="number"></v-text-field>
 
             <v-textarea outlined v-model="targetRecord.memo" label="メモ"></v-textarea>
+            <v-checkbox v-model="targetRecord.prodrome" label="前駆症状があった" class="mt-0"></v-checkbox>
           </v-card-text>
           <v-card-actions>
             <v-spacer />
@@ -103,7 +104,8 @@ export default {
         onsetDate: now.format('YYYY-MM-DD'),
         onsetTime: now.format('HH:mm'),
         impact: 1,
-        memo: ''
+        memo: '',
+        prodrome: false
       }
     }
   },

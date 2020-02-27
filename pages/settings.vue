@@ -7,6 +7,7 @@
             <div>設定</div>
           </v-card-title>
           <v-card-text class="text-center">
+            <v-textarea outlined v-model="template" label="テンプレート" placeholder="記録を作成したとき、デフォルトで入力されます"></v-textarea>
             <amplify-sign-out></amplify-sign-out>
           </v-card-text>
         </v-card>
@@ -16,7 +17,13 @@
 </template>
 
 <script>
-export default {}
+export default {
+  data: function(){
+    return {
+      template: ""
+    }
+  }
+}
 </script>
 
 <style>

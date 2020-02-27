@@ -10,6 +10,7 @@ export const getHeadacheReport = /* GraphQL */ `
       impact
       duration
       memo
+      prodrome
       owner
     }
   }
@@ -28,6 +29,34 @@ export const listHeadacheReports = /* GraphQL */ `
         impact
         duration
         memo
+        prodrome
+        owner
+      }
+      nextToken
+    }
+  }
+`;
+export const getUserSettings = /* GraphQL */ `
+  query GetUserSettings($id: ID!) {
+    getUserSettings(id: $id) {
+      id
+      defaultImpact
+      template
+      owner
+    }
+  }
+`;
+export const listUserSettingss = /* GraphQL */ `
+  query ListUserSettingss(
+    $filter: ModelUserSettingsFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listUserSettingss(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        defaultImpact
+        template
         owner
       }
       nextToken

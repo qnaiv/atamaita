@@ -5,4 +5,10 @@ type HeadacheReport @model @auth(rules: [{allow: owner}]) {
   impact: String!
   duration: Int
   memo:String
+  prodrome: Boolean
+}
+type UserSettings @model @auth(rules: [{allow: owner}]) {
+  id: ID!
+  defaultImpact: Int
+  template: String
 }

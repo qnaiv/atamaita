@@ -10,6 +10,7 @@ export const onCreateHeadacheReport = /* GraphQL */ `
       impact
       duration
       memo
+      prodrome
       owner
     }
   }
@@ -23,6 +24,7 @@ export const onUpdateHeadacheReport = /* GraphQL */ `
       impact
       duration
       memo
+      prodrome
       owner
     }
   }
@@ -36,6 +38,37 @@ export const onDeleteHeadacheReport = /* GraphQL */ `
       impact
       duration
       memo
+      prodrome
+      owner
+    }
+  }
+`;
+export const onCreateUserSettings = /* GraphQL */ `
+  subscription OnCreateUserSettings($owner: String!) {
+    onCreateUserSettings(owner: $owner) {
+      id
+      defaultImpact
+      template
+      owner
+    }
+  }
+`;
+export const onUpdateUserSettings = /* GraphQL */ `
+  subscription OnUpdateUserSettings($owner: String!) {
+    onUpdateUserSettings(owner: $owner) {
+      id
+      defaultImpact
+      template
+      owner
+    }
+  }
+`;
+export const onDeleteUserSettings = /* GraphQL */ `
+  subscription OnDeleteUserSettings($owner: String!) {
+    onDeleteUserSettings(owner: $owner) {
+      id
+      defaultImpact
+      template
       owner
     }
   }

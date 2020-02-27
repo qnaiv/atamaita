@@ -13,7 +13,7 @@
                 <v-list-item-content>
                   <v-list-item-title>
                     {{ record.onsetDate | moment("DD日") }} {{record.onsetTime}}
-                    <!-- <v-icon color="orange darken-2">mdi-weather-sunny</v-icon> -->
+                    <span v-if="record.prodrome" class="tag">前駆症状あり</span>
                   </v-list-item-title>
                   <p class="memo">{{record.memo}}</p>
                 </v-list-item-content>
