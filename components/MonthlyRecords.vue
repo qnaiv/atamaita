@@ -19,7 +19,7 @@
                 </v-list-item-content>
                 <v-list-item-action>
                   <v-list-item-action-text>
-                    <span v-if="record.duration">{{record.duration}} hr</span>
+                    <span v-if="record.curedDate">{{calcDuration(record)}} hr</span>
                   </v-list-item-action-text>
                   <v-icon color="blue darken-2" v-if="record.impact == 1">mdi-emoticon-frown-outline</v-icon>
                   <v-icon
@@ -49,7 +49,14 @@ export default {
     yearMonth: String,
     records: Array
   },
-  computed: {}
+  methods: {
+    calcDuration(record){
+      let onset = moment(record.onsetDate + ' ' + record.onsetTime)
+      let cured = moment(record.curedDate + ' ' + record.curedTime)
+      if(!onset || !cured) return
+      return cured.diff(onset, "hours")
+    }
+  }
 }
 </script>
 

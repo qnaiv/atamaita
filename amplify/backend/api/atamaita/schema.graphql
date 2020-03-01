@@ -1,11 +1,21 @@
-type HeadacheReport @model @auth(rules: [{allow: owner}]) {
+type HeadacheReport 
+@model 
+@auth(rules: [{allow: owner}]) 
+@key(
+  name:"ByOwner"
+  fields: ["owner","onsetDate"],
+  queryField: "headacheReportByOwner"
+  ) {
   id: ID!
   onsetDate: String!
   onsetTime: String!
-  impact: String!
-  duration: Int
+  curedDate: String
+  curedTime: String
+  impact: Int!
   memo:String
   prodrome: Boolean
+  owner: String
+
 }
 type UserSettings @model @auth(rules: [{allow: owner}]) {
   id: ID!

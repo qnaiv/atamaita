@@ -7,8 +7,9 @@ export const getHeadacheReport = /* GraphQL */ `
       id
       onsetDate
       onsetTime
+      curedDate
+      curedTime
       impact
-      duration
       memo
       prodrome
       owner
@@ -26,8 +27,9 @@ export const listHeadacheReports = /* GraphQL */ `
         id
         onsetDate
         onsetTime
+        curedDate
+        curedTime
         impact
-        duration
         memo
         prodrome
         owner
@@ -57,6 +59,38 @@ export const listUserSettingss = /* GraphQL */ `
         id
         defaultImpact
         template
+        owner
+      }
+      nextToken
+    }
+  }
+`;
+export const headacheReportByOwner = /* GraphQL */ `
+  query HeadacheReportByOwner(
+    $owner: String
+    $onsetDate: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelHeadacheReportFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    headacheReportByOwner(
+      owner: $owner
+      onsetDate: $onsetDate
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        onsetDate
+        onsetTime
+        curedDate
+        curedTime
+        impact
+        memo
+        prodrome
         owner
       }
       nextToken

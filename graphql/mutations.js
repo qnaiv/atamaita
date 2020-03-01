@@ -10,8 +10,9 @@ export const createHeadacheReport = /* GraphQL */ `
       id
       onsetDate
       onsetTime
+      curedDate
+      curedTime
       impact
-      duration
       memo
       prodrome
       owner
@@ -27,8 +28,9 @@ export const updateHeadacheReport = /* GraphQL */ `
       id
       onsetDate
       onsetTime
+      curedDate
+      curedTime
       impact
-      duration
       memo
       prodrome
       owner
@@ -44,8 +46,9 @@ export const deleteHeadacheReport = /* GraphQL */ `
       id
       onsetDate
       onsetTime
+      curedDate
+      curedTime
       impact
-      duration
       memo
       prodrome
       owner
