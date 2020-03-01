@@ -17,7 +17,7 @@ type HeadacheReport
   owner: String
 
 }
-type UserSettings @model @auth(rules: [{allow: owner}]) {
+type UserSetting @model @auth(rules: [{allow: owner}]) {
   id: ID!
   defaultImpact: Int
   template: String

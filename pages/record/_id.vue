@@ -149,6 +149,7 @@ export default {
     async updateRecord() {
       let loader = this.$loading.show()
       delete this.targetRecord.owner
+      if(this.targetRecord.memo == '') this.targetRecord.memo = null
       await API.graphql(
         graphqlOperation(updateHeadacheReport, { input: this.targetRecord })
       )

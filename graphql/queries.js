@@ -38,9 +38,9 @@ export const listHeadacheReports = /* GraphQL */ `
     }
   }
 `;
-export const getUserSettings = /* GraphQL */ `
-  query GetUserSettings($id: ID!) {
-    getUserSettings(id: $id) {
+export const getUserSetting = /* GraphQL */ `
+  query GetUserSetting($id: ID!) {
+    getUserSetting(id: $id) {
       id
       defaultImpact
       template
@@ -48,13 +48,13 @@ export const getUserSettings = /* GraphQL */ `
     }
   }
 `;
-export const listUserSettingss = /* GraphQL */ `
-  query ListUserSettingss(
-    $filter: ModelUserSettingsFilterInput
+export const listUserSettings = /* GraphQL */ `
+  query ListUserSettings(
+    $filter: ModelUserSettingFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listUserSettingss(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listUserSettings(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
         defaultImpact

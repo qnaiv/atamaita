@@ -77,7 +77,7 @@
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "getUserSettings",
+          "name" : "getUserSetting",
           "description" : null,
           "args" : [ {
             "name" : "id",
@@ -95,20 +95,20 @@
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "UserSettings",
+            "name" : "UserSetting",
             "ofType" : null
           },
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "listUserSettingss",
+          "name" : "listUserSettings",
           "description" : null,
           "args" : [ {
             "name" : "filter",
             "description" : null,
             "type" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelUserSettingsFilterInput",
+              "name" : "ModelUserSettingFilterInput",
               "ofType" : null
             },
             "defaultValue" : null
@@ -133,7 +133,7 @@
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "ModelUserSettingsConnection",
+            "name" : "ModelUserSettingConnection",
             "ofType" : null
           },
           "isDeprecated" : false,
@@ -1064,7 +1064,7 @@
         "possibleTypes" : null
       }, {
         "kind" : "OBJECT",
-        "name" : "UserSettings",
+        "name" : "UserSetting",
         "description" : null,
         "fields" : [ {
           "name" : "id",
@@ -1121,7 +1121,7 @@
         "possibleTypes" : null
       }, {
         "kind" : "OBJECT",
-        "name" : "ModelUserSettingsConnection",
+        "name" : "ModelUserSettingConnection",
         "description" : null,
         "fields" : [ {
           "name" : "items",
@@ -1132,7 +1132,7 @@
             "name" : null,
             "ofType" : {
               "kind" : "OBJECT",
-              "name" : "UserSettings",
+              "name" : "UserSetting",
               "ofType" : null
             }
           },
@@ -1156,7 +1156,7 @@
         "possibleTypes" : null
       }, {
         "kind" : "INPUT_OBJECT",
-        "name" : "ModelUserSettingsFilterInput",
+        "name" : "ModelUserSettingFilterInput",
         "description" : null,
         "fields" : null,
         "inputFields" : [ {
@@ -1194,7 +1194,7 @@
             "name" : null,
             "ofType" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelUserSettingsFilterInput",
+              "name" : "ModelUserSettingFilterInput",
               "ofType" : null
             }
           },
@@ -1207,7 +1207,7 @@
             "name" : null,
             "ofType" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelUserSettingsFilterInput",
+              "name" : "ModelUserSettingFilterInput",
               "ofType" : null
             }
           },
@@ -1217,7 +1217,7 @@
           "description" : null,
           "type" : {
             "kind" : "INPUT_OBJECT",
-            "name" : "ModelUserSettingsFilterInput",
+            "name" : "ModelUserSettingFilterInput",
             "ofType" : null
           },
           "defaultValue" : null
@@ -1424,7 +1424,7 @@
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "createUserSettings",
+          "name" : "createUserSetting",
           "description" : null,
           "args" : [ {
             "name" : "input",
@@ -1434,7 +1434,7 @@
               "name" : null,
               "ofType" : {
                 "kind" : "INPUT_OBJECT",
-                "name" : "CreateUserSettingsInput",
+                "name" : "CreateUserSettingInput",
                 "ofType" : null
               }
             },
@@ -1444,20 +1444,20 @@
             "description" : null,
             "type" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelUserSettingsConditionInput",
+              "name" : "ModelUserSettingConditionInput",
               "ofType" : null
             },
             "defaultValue" : null
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "UserSettings",
+            "name" : "UserSetting",
             "ofType" : null
           },
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "updateUserSettings",
+          "name" : "updateUserSetting",
           "description" : null,
           "args" : [ {
             "name" : "input",
@@ -1467,7 +1467,7 @@
               "name" : null,
               "ofType" : {
                 "kind" : "INPUT_OBJECT",
-                "name" : "UpdateUserSettingsInput",
+                "name" : "UpdateUserSettingInput",
                 "ofType" : null
               }
             },
@@ -1477,20 +1477,20 @@
             "description" : null,
             "type" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelUserSettingsConditionInput",
+              "name" : "ModelUserSettingConditionInput",
               "ofType" : null
             },
             "defaultValue" : null
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "UserSettings",
+            "name" : "UserSetting",
             "ofType" : null
           },
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "deleteUserSettings",
+          "name" : "deleteUserSetting",
           "description" : null,
           "args" : [ {
             "name" : "input",
@@ -1500,7 +1500,7 @@
               "name" : null,
               "ofType" : {
                 "kind" : "INPUT_OBJECT",
-                "name" : "DeleteUserSettingsInput",
+                "name" : "DeleteUserSettingInput",
                 "ofType" : null
               }
             },
@@ -1510,14 +1510,14 @@
             "description" : null,
             "type" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelUserSettingsConditionInput",
+              "name" : "ModelUserSettingConditionInput",
               "ofType" : null
             },
             "defaultValue" : null
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "UserSettings",
+            "name" : "UserSetting",
             "ofType" : null
           },
           "isDeprecated" : false,
@@ -1850,7 +1850,7 @@
         "possibleTypes" : null
       }, {
         "kind" : "INPUT_OBJECT",
-        "name" : "CreateUserSettingsInput",
+        "name" : "CreateUserSettingInput",
         "description" : null,
         "fields" : null,
         "inputFields" : [ {
@@ -1886,7 +1886,7 @@
         "possibleTypes" : null
       }, {
         "kind" : "INPUT_OBJECT",
-        "name" : "ModelUserSettingsConditionInput",
+        "name" : "ModelUserSettingConditionInput",
         "description" : null,
         "fields" : null,
         "inputFields" : [ {
@@ -1915,7 +1915,7 @@
             "name" : null,
             "ofType" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelUserSettingsConditionInput",
+              "name" : "ModelUserSettingConditionInput",
               "ofType" : null
             }
           },
@@ -1928,7 +1928,7 @@
             "name" : null,
             "ofType" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelUserSettingsConditionInput",
+              "name" : "ModelUserSettingConditionInput",
               "ofType" : null
             }
           },
@@ -1938,7 +1938,7 @@
           "description" : null,
           "type" : {
             "kind" : "INPUT_OBJECT",
-            "name" : "ModelUserSettingsConditionInput",
+            "name" : "ModelUserSettingConditionInput",
             "ofType" : null
           },
           "defaultValue" : null
@@ -1948,7 +1948,7 @@
         "possibleTypes" : null
       }, {
         "kind" : "INPUT_OBJECT",
-        "name" : "UpdateUserSettingsInput",
+        "name" : "UpdateUserSettingInput",
         "description" : null,
         "fields" : null,
         "inputFields" : [ {
@@ -1988,7 +1988,7 @@
         "possibleTypes" : null
       }, {
         "kind" : "INPUT_OBJECT",
-        "name" : "DeleteUserSettingsInput",
+        "name" : "DeleteUserSettingInput",
         "description" : null,
         "fields" : null,
         "inputFields" : [ {
@@ -2081,7 +2081,7 @@
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "onCreateUserSettings",
+          "name" : "onCreateUserSetting",
           "description" : null,
           "args" : [ {
             "name" : "owner",
@@ -2099,13 +2099,13 @@
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "UserSettings",
+            "name" : "UserSetting",
             "ofType" : null
           },
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "onUpdateUserSettings",
+          "name" : "onUpdateUserSetting",
           "description" : null,
           "args" : [ {
             "name" : "owner",
@@ -2123,13 +2123,13 @@
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "UserSettings",
+            "name" : "UserSetting",
             "ofType" : null
           },
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "onDeleteUserSettings",
+          "name" : "onDeleteUserSetting",
           "description" : null,
           "args" : [ {
             "name" : "owner",
@@ -2147,7 +2147,7 @@
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "UserSettings",
+            "name" : "UserSetting",
             "ofType" : null
           },
           "isDeprecated" : false,

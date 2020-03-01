@@ -60,13 +60,25 @@ import { API, graphqlOperation, Auth } from 'aws-amplify'
 import { createHeadacheReport } from '../graphql/mutations'
 import * as moment from 'moment'
 import { onCreateHeadacheReport } from '../graphql/subscriptions'
-import { getHeadacheReport, headacheReportByOwner } from '../graphql/queries'
+import { getHeadacheReport, headacheReportByOwner, listUserSettings } from '../graphql/queries'
 import groupBy from 'lodash/groupBy'
 
 export default {
   async created() {
     let user = await Auth.currentUserInfo()
     this.owner = user.username
+
+    let userSettingResponse = await API.graphql(
+      graphqlOperation(listUserSettings, { owner: this.owner })
+    )
+    if(userSettingResponse.data.listUserSettings.items.length >= 0){
+      this.userSetting = userSettingResponse.data.listUserSettings.items[0];
+      console.log("this.userSetting");
+      console.log(this.userSetting);
+      
+    }
+
+    
 
     this.listRecords()
 
@@ -99,6 +111,7 @@ export default {
       owner: null,
       selectedImpact: '1',
       records: [],
+      userSetting: {},
       loaded: false,
       nextRecordToken: null,
       limit: 9999
@@ -116,7 +129,7 @@ export default {
             curedDate: null,
             curedTime: null,
             impact: this.selectedImpact,
-            memo: null,
+            memo: this.userSetting.template,
             prodrome: false
           }
         })

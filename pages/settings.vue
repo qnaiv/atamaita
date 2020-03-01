@@ -7,7 +7,14 @@
             <div>設定</div>
           </v-card-title>
           <v-card-text class="text-center">
-            <v-textarea outlined v-model="template" label="テンプレート" placeholder="記録を作成したとき、デフォルトで入力されます"></v-textarea>
+            <v-textarea
+              outlined
+              v-model="userSetting.template"
+              label="テンプレート"
+              placeholder="記録を作成したとき、デフォルトで入力されます"
+            ></v-textarea>
+            <v-btn color="primary" v-on:click="saveUserSettings" class="mb-5">保存</v-btn>
+            <v-divider class="mb-5"></v-divider>
             <amplify-sign-out></amplify-sign-out>
           </v-card-text>
         </v-card>
@@ -17,10 +24,47 @@
 </template>
 
 <script>
+import { listUserSettings } from '../graphql/queries'
+import { API, graphqlOperation, Auth } from 'aws-amplify'
+import { createUserSetting, updateUserSetting } from '../graphql/mutations'
+
 export default {
-  data: function(){
+  async created() {
+    let loader = this.$loading.show()
+    let user = await Auth.currentUserInfo()
+    this.owner = user.username
+    let response = await API.graphql(
+      graphqlOperation(listUserSettings, { owner: this.owner })
+    )
+    if (response.data.listUserSettings.items.length >= 0) {
+      this.userSetting = response.data.listUserSettings.items[0]
+    }
+    loader.hide()
+  },
+  data: function() {
     return {
-      template: ""
+      owner: null,
+      userSetting: {}
+    }
+  },
+  methods: {
+    async saveUserSettings() {
+      let loader = this.$loading.show()
+
+      let id = this.userSetting.id
+      if(this.userSetting.template === '') this.userSetting.template = null
+
+      if (id) {
+        delete this.userSetting.owner
+        let response = await API.graphql(
+          graphqlOperation(updateUserSetting, { input: this.userSetting })
+        )
+      } else {
+        let response = await API.graphql(
+          graphqlOperation(createUserSetting, { input: this.userSetting })
+        )
+      }
+      loader.hide()
     }
   }
 }

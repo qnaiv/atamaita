@@ -46,9 +46,9 @@ export const onDeleteHeadacheReport = /* GraphQL */ `
     }
   }
 `;
-export const onCreateUserSettings = /* GraphQL */ `
-  subscription OnCreateUserSettings($owner: String!) {
-    onCreateUserSettings(owner: $owner) {
+export const onCreateUserSetting = /* GraphQL */ `
+  subscription OnCreateUserSetting($owner: String!) {
+    onCreateUserSetting(owner: $owner) {
       id
       defaultImpact
       template
@@ -56,9 +56,9 @@ export const onCreateUserSettings = /* GraphQL */ `
     }
   }
 `;
-export const onUpdateUserSettings = /* GraphQL */ `
-  subscription OnUpdateUserSettings($owner: String!) {
-    onUpdateUserSettings(owner: $owner) {
+export const onUpdateUserSetting = /* GraphQL */ `
+  subscription OnUpdateUserSetting($owner: String!) {
+    onUpdateUserSetting(owner: $owner) {
       id
       defaultImpact
       template
@@ -66,9 +66,9 @@ export const onUpdateUserSettings = /* GraphQL */ `
     }
   }
 `;
-export const onDeleteUserSettings = /* GraphQL */ `
-  subscription OnDeleteUserSettings($owner: String!) {
-    onDeleteUserSettings(owner: $owner) {
+export const onDeleteUserSetting = /* GraphQL */ `
+  subscription OnDeleteUserSetting($owner: String!) {
+    onDeleteUserSetting(owner: $owner) {
       id
       defaultImpact
       template

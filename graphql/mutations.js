@@ -55,12 +55,12 @@ export const deleteHeadacheReport = /* GraphQL */ `
     }
   }
 `;
-export const createUserSettings = /* GraphQL */ `
-  mutation CreateUserSettings(
-    $input: CreateUserSettingsInput!
-    $condition: ModelUserSettingsConditionInput
+export const createUserSetting = /* GraphQL */ `
+  mutation CreateUserSetting(
+    $input: CreateUserSettingInput!
+    $condition: ModelUserSettingConditionInput
   ) {
-    createUserSettings(input: $input, condition: $condition) {
+    createUserSetting(input: $input, condition: $condition) {
       id
       defaultImpact
       template
@@ -68,12 +68,12 @@ export const createUserSettings = /* GraphQL */ `
     }
   }
 `;
-export const updateUserSettings = /* GraphQL */ `
-  mutation UpdateUserSettings(
-    $input: UpdateUserSettingsInput!
-    $condition: ModelUserSettingsConditionInput
+export const updateUserSetting = /* GraphQL */ `
+  mutation UpdateUserSetting(
+    $input: UpdateUserSettingInput!
+    $condition: ModelUserSettingConditionInput
   ) {
-    updateUserSettings(input: $input, condition: $condition) {
+    updateUserSetting(input: $input, condition: $condition) {
       id
       defaultImpact
       template
@@ -81,12 +81,12 @@ export const updateUserSettings = /* GraphQL */ `
     }
   }
 `;
-export const deleteUserSettings = /* GraphQL */ `
-  mutation DeleteUserSettings(
-    $input: DeleteUserSettingsInput!
-    $condition: ModelUserSettingsConditionInput
+export const deleteUserSetting = /* GraphQL */ `
+  mutation DeleteUserSetting(
+    $input: DeleteUserSettingInput!
+    $condition: ModelUserSettingConditionInput
   ) {
-    deleteUserSettings(input: $input, condition: $condition) {
+    deleteUserSetting(input: $input, condition: $condition) {
       id
       defaultImpact
       template
