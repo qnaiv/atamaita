@@ -60,7 +60,11 @@ import { API, graphqlOperation, Auth } from 'aws-amplify'
 import { createHeadacheReport } from '../graphql/mutations'
 import * as moment from 'moment'
 import { onCreateHeadacheReport } from '../graphql/subscriptions'
-import { getHeadacheReport, headacheReportByOwner, listUserSettings } from '../graphql/queries'
+import {
+  getHeadacheReport,
+  headacheReportByOwner,
+  listUserSettings
+} from '../graphql/queries'
 import groupBy from 'lodash/groupBy'
 
 export default {
@@ -71,14 +75,11 @@ export default {
     let userSettingResponse = await API.graphql(
       graphqlOperation(listUserSettings, { owner: this.owner })
     )
-    if(userSettingResponse.data.listUserSettings.items.length >= 0){
-      this.userSetting = userSettingResponse.data.listUserSettings.items[0];
-      console.log("this.userSetting");
-      console.log(this.userSetting);
-      
+    try {
+      let userSetting = userSettingResponse.data.listUserSettings.items[0]
+      if (userSetting) this.userSetting = userSetting
+    } catch (error) {
     }
-
-    
 
     this.listRecords()
 

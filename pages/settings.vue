@@ -36,15 +36,18 @@ export default {
     let response = await API.graphql(
       graphqlOperation(listUserSettings, { owner: this.owner })
     )
-    if (response.data.listUserSettings.items.length >= 0) {
-      this.userSetting = response.data.listUserSettings.items[0]
-    }
+    try {
+      let userSetting = response.data.listUserSettings.items[0]
+      if (userSetting) this.userSetting = userSetting
+    } catch (error) {}
     loader.hide()
   },
   data: function() {
     return {
       owner: null,
-      userSetting: {}
+      userSetting: {
+        template: ''
+      }
     }
   },
   methods: {
@@ -52,7 +55,7 @@ export default {
       let loader = this.$loading.show()
 
       let id = this.userSetting.id
-      if(this.userSetting.template === '') this.userSetting.template = null
+      if (this.userSetting.template === '') this.userSetting.template = null
 
       if (id) {
         delete this.userSetting.owner

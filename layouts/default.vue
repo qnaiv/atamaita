@@ -62,8 +62,6 @@ import { Auth } from 'aws-amplify'
 export default {
   computed: {
     loginUserName() {
-      console.log(this.$store.state.loginuser.name)
-
       return this.$store.state.loginuser.name
     }
   },

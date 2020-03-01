@@ -120,10 +120,20 @@
 <script>
 import * as moment from 'moment'
 import { graphqlOperation, API, Auth } from 'aws-amplify'
-import { getHeadacheReport } from '../../graphql/queries'
+import { getHeadacheReport, listUserSettings } from '../../graphql/queries'
 import { createHeadacheReport } from '../../graphql/mutations'
 
 export default {
+  async created(){
+    let userSettingResponse = await API.graphql(
+      graphqlOperation(listUserSettings, { owner: this.owner })
+    )
+    try {
+      let userSetting = userSettingResponse.data.listUserSettings.items[0]
+      if (userSetting) this.targetRecord.memo = userSetting.template
+    } catch (error) {
+    }
+  },
   data: function() {
     let now = moment()
     return {
